@@ -12,6 +12,9 @@ function AuthButton () {
         {isAuthenticated && <Logout />}
         </>
     )
+
+    //another way Conditional rendering
+    // return isAuthenticated ? <Logout /> : <Login />
 }
 
 export default AuthButton;

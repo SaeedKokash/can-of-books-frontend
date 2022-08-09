@@ -2,7 +2,7 @@ import React from 'react';
 import { Navbar, NavItem } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import AuthButton from './Auth0/AuthButtons';
-import User from './Auth0/User';
+import User from './Profile';
 
 class Header extends React.Component {
   render() {
