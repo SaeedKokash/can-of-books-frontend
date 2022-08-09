@@ -2,18 +2,21 @@ import React from 'react';
 import { Navbar, NavItem } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import AuthButton from './Auth0/AuthButtons';
-import User from './Profile';
+import Profile from './Profile';
 
 class Header extends React.Component {
   render() {
     return (
-      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-        <Navbar.Brand>My Favorite Books</Navbar.Brand>
-        <NavItem><Link to="/" className="nav-link">Home</Link></NavItem>
-        {/* PLACEHOLDER: render a navigation link to the about page */}
-        <AuthButton />
-        <User />
-      </Navbar>
+      <div className="navBar">
+        <Navbar collapseOnSelect expand="lg" bg="light" variant="dark" >
+          <Navbar.Brand >My Favorite Books</Navbar.Brand>
+          <NavItem><Link to="/" className="nav-link">Home</Link></NavItem>
+          <NavItem><Link to="/profile" className="nav-link">Profile</Link></NavItem>
+          <NavItem><Link to="/about" className="nav-link">About</Link></NavItem>
+          <AuthButton />
+          <Profile />
+        </Navbar>
+      </div>
     )
   }
 }
