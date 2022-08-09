@@ -2,7 +2,10 @@ import React from 'react';
 import Header from './Header';
 import Footer from './Footer';
 import BestBooks from './BestBooks';
-import Profile from './Auth0/User';
+import Welcome from './Welcome';
+import Profile from './Profile';
+
+import { useAuth0 } from '@auth0/auth0-react';
 
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -15,6 +18,7 @@ import {
 
 class App extends React.Component {
   render() {
+    const { isAuthenticated } = useAuth0;
     return (
       <>
         <Router>
@@ -23,13 +27,15 @@ class App extends React.Component {
           <Routes>
             <Route 
               exact path="/"
-              element={<BestBooks />}
+              element={isAuthenticated ? <BestBooks /> : <Welcome /> }
             >
 
-            <Route
-            exact path="/Profile"
-            element={<Profile />} 
-            ></Route>
+          </Route>
+
+          <Route 
+              exact path="/profile"
+              element={ <Profile /> }
+            >
 
           </Route>
              
