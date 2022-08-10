@@ -1,64 +1,61 @@
 import React from 'react';
 import axios from 'axios';
-import Carousel from 'react-bootstrap/Carousel';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import BookFormModal from './components/BookFormModal'
+import CarouselBooks from './components/CarouselBooks'
 
 class BestBooks extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      books: []
+      books: [],
     }
   }
 
-  /* TODO: Make a GET request to your API to fetch all the books from the database  */
 
   getBooks = async () => {
     const res = await axios.get('http://localhost:4000/books');
     this.setState({
       books: res.data
     })
-    console.log(this.state);
+    // console.log(this.state);
   }
 
   componentDidMount() {
-    console.log("we are inside componentDidMount");
+    // console.log("we are inside componentDidMount");
+    this.getBooks();
+  }
+
+  deleteBook = async (id) => {
+    await axios.delete(`http://localhost:4000/books/${id}`);
+    this.getBooks();
+  }
+
+  createBook = async (e) => {
+    e.preventDefault();
+    const newBook = {
+      'title': e.target.bookTitle.value,
+      'description': e.target.bookDescription.value,
+      'status': true,
+      'imgURL': e.target.bookImgURL.value,
+    }
+    await axios.post(`http://localhost:4000/books`, {newBook});
     this.getBooks();
   }
 
 
   render() {
 
-    /* TODO: render all the books in a Carousel */
-
     return (
 
       <>
         <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
 
+        <BookFormModal submitHandler={this.createBook}/>
+
         {this.state.books.length ? (
-          <Carousel>
 
-            {this.state.books.map((value, idx) => {
-              return (
-
-                <Carousel.Item key={idx}>
-                  <img
-                    className="d-block w-100"
-                    src="holder.js/800x400?text=First slide&bg=373940"
-                    alt={value.title}
-                  />
-                  <Carousel.Caption>
-                    <h3>{value.title}</h3>
-                    <p>{value.description}</p>
-                    <p>{value.status}</p>
-                  </Carousel.Caption>
-                </Carousel.Item>
-
-              )
-            })
-            }
-          </Carousel>
+          <CarouselBooks handleDelete={this.deleteBook} books={this.state.books}/> 
 
         ) : (<h3>No Books Found :(</h3>)
 

@@ -26,25 +26,10 @@ class App extends React.Component {
 
           <Routes>
 
-            <Route
-              exact path="/"
-              element={isAuthenticated ? <BestBooks /> : <Welcome />}
-            >
-            </Route>
+            <Route exact path="/" element={isAuthenticated ? <BestBooks /> : <Welcome />}> </Route>
+            <Route exact path="/profile" element={<Profile />}> </Route>
+            <Route exact path="/about" element={<About />}> </Route>
 
-            <Route
-              exact path="/profile"
-              element={<Profile />}
-            >
-            </Route>
-
-            <Route
-              exact path="/about"
-              element={<About />}
-            >
-            </Route>
-
-            {/* PLACEHOLDER: add a route with a path of '/about' that renders the `About` component */}
           </Routes>
 
           <Footer />
